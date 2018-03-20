@@ -87,11 +87,20 @@ class TranslatePageState extends State<TranslatePage> {
             hintText: '输入你要翻译的内容吧',
           ),
         ),
+        new Container(
+          padding: const EdgeInsets.only(top: 5.0),
+        ),
         new RaisedButton(
           onPressed: () {
             getTranslateData(_controller.text);
           },
-          child: new Text('翻译'),
+            color: Colors.blue,
+          child: new Text('翻译',
+          style: new TextStyle(
+            color: Colors.white
+          ),
+          ),
+
         ),
       ],
     );
@@ -99,28 +108,32 @@ class TranslatePageState extends State<TranslatePage> {
 
   setData(Translate translate) {
     var input = setInput();
-
     var movieMsg = new Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
+        new Divider(),
         new Text(
           '翻译结果：' + translate.translation,
           textAlign: TextAlign.left,
           style: new TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14.0
+              fontWeight: FontWeight.bold, fontSize: 18.0
           ),
         ),
+        new Divider(),
         new Text('普通发音：' + translate.phonetic),
         new Text('美式发音：' + translate.us),
         new Text('英式发音：' + translate.uk),
+        new Divider(),
         new Text(
           '翻译解析：' + translate.explains,
           style: new TextStyle(
-            fontSize: 12.0,
+            fontSize: 14.0,
             color: Colors.redAccent,),
         ),
+        new Divider(),
         new Text('网络翻译：' + translate.webs),
+        new Divider(),
       ],
     );
 
