@@ -12,14 +12,29 @@ class TranslatePage extends StatefulWidget {
 
 class TranslatePageState extends State<TranslatePage> {
   Translate translate;
-
+  final TextEditingController _controller = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var content;
     if (translate == null) {
-      content = new Center(
-        child: new CircularProgressIndicator(),
+      var input = setInput();
+      content = new Padding(
+        padding: const EdgeInsets.only(
+          top: 10.0,
+          left: 10.0,
+          right: 10.0,
+          bottom: 10.0,
+        ),
+        child: new Scrollbar(
+          child: new Column(
+            children: <Widget>[
+              input
+
+            ],
+          ),
+        ),
+
       );
     } else {
       content = setData(translate);
@@ -32,17 +47,17 @@ class TranslatePageState extends State<TranslatePage> {
         ),
         child: new Scrollbar(
           child: content,
+
         ),
       );
     }
 
-
     return new Scaffold(
       appBar: new AppBar(
-        //注意这里的写法 widget.movie，拿到 MovieDetailPage
         title: new Text("翻译君"),
       ),
       body: content,
+
 
     );
   }
@@ -50,43 +65,66 @@ class TranslatePageState extends State<TranslatePage> {
   @override
   void initState() {
     super.initState();
-    getMovieDetailData();
   }
 
-  getMovieDetailData() async {
+  getTranslateData(String word) async {
     String response = await createHttpClient().read(
-        'http://fanyi.youdao.com/openapi.do?keyfrom=zhaotranslator&key=1681711370&type=data&doctype=json&version=1.1&q=apple');
+        'http://fanyi.youdao.com/openapi.do?keyfrom=zhaotranslator&key=1681711370&type=data&doctype=json&version=1.1&q=' +
+            word);
 
     setState(() {
-      translate= Translate.allFromResponse(response);
+      translate = Translate.allFromResponse(response);
     });
   }
 
+  setInput() {
+    return new Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        new TextField(
+          controller: _controller,
+          decoration: new InputDecoration(
+            hintText: '输入你要翻译的内容吧',
+          ),
+        ),
+        new RaisedButton(
+          onPressed: () {
+            getTranslateData(_controller.text);
+          },
+          child: new Text('翻译'),
+        ),
+      ],
+    );
+  }
+
   setData(Translate translate) {
+    var input = setInput();
 
     var movieMsg = new Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         new Text(
-         '翻译结果：'+translate.translation,
+          '翻译结果：' + translate.translation,
           textAlign: TextAlign.left,
           style: new TextStyle(
               fontWeight: FontWeight.bold, fontSize: 14.0
           ),
         ),
-        new Text('普通发音：'+translate.phonetic),
-        new Text('美式发音：'+translate.us),
-        new Text('英式发音：'+translate.uk),
+        new Text('普通发音：' + translate.phonetic),
+        new Text('美式发音：' + translate.us),
+        new Text('英式发音：' + translate.uk),
         new Text(
-          '翻译解析：'+translate.explains ,
+          '翻译解析：' + translate.explains,
           style: new TextStyle(
             fontSize: 12.0,
             color: Colors.redAccent,),
         ),
-        new Text('网络翻译：'+translate.webs),
+        new Text('网络翻译：' + translate.webs),
       ],
     );
+
+
     return new Padding(
       padding: const EdgeInsets.only(
         top: 10.0,
@@ -97,7 +135,9 @@ class TranslatePageState extends State<TranslatePage> {
       child: new Scrollbar(
         child: new Column(
           children: <Widget>[
+            input,
             movieMsg,
+
           ],
         ),
       ),
