@@ -2,7 +2,10 @@
 
 A new Flutter application.
 
-## Getting Started
+## 效果
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+![](./gif/preview.gif)
+
+## 联系我
+
+邮箱📮：zhaoweihaochn@foxmail.com
