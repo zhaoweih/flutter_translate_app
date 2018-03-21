@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:translate_flutter_app/translate/translate.dart';
-import 'package:meta/meta.dart';
 import 'package:flutter/services.dart';
 
 class TranslatePage extends StatefulWidget {
@@ -94,11 +93,11 @@ class TranslatePageState extends State<TranslatePage> {
           onPressed: () {
             getTranslateData(_controller.text);
           },
-            color: Colors.blue,
+          color: Colors.blue,
           child: new Text('翻译',
-          style: new TextStyle(
-            color: Colors.white
-          ),
+            style: new TextStyle(
+                color: Colors.white
+            ),
           ),
 
         ),
@@ -108,7 +107,7 @@ class TranslatePageState extends State<TranslatePage> {
 
   setData(Translate translate) {
     var input = setInput();
-    var movieMsg = new Column(
+    var translateMsg = new Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -149,7 +148,7 @@ class TranslatePageState extends State<TranslatePage> {
         child: new Column(
           children: <Widget>[
             input,
-            movieMsg,
+            translateMsg,
 
           ],
         ),
