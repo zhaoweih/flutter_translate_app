@@ -8,4 +8,4 @@ A new Flutter application.
 
 ## 联系我
 
-邮箱📮：zhaoweihaochn@foxmail.com
+邮箱📮：zhaoweihao.dev#gmail.com
